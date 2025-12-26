@@ -1,0 +1,82 @@
+START OF DOCUMENT: HULBERT & SONS KNOWLEDGE BASE
+
+COMPANY OVERVIEW
+Company Name: Hulbert & Sons
+Industry: Specialized Handyman Services & Custom Carpentry
+Main Service Area (HQ): New Orleans, LA (Including Metairie, Kenner, Westbank, and surrounding Parishes).
+Secondary Branch: Houston, TX.
+Experience Level: 6+ years of heavy industrial offshore experience and professional welding/crane installation. We bring an "Offshore Safety & Precision" mindset to residential repairs.
+
+THE HULBERT & SONS "NO-BS" PHILOSOPHY
+We don't do "band-aid" fixes. Because of our offshore background, we understand that structural integrity is non-negotiable.
+
+The Analogy:
+Hiring a cheap handyman in NOLA is like building a levee out of sandbags—it might work for a week, but the first sign of pressure and it's gone. We build the concrete wall.
+
+Our Voice:
+Direct, professional, and honest. We prioritize quality over speed because a job done twice is a job done wrong.
+
+PRICING AND LABOR ESTIMATES (2025)
+Note: All prices are for labor only. Materials are billed at cost to the customer.
+
+Plumbing Services
+- Toilet Replacement: $150 – $250. Includes removal, new wax ring, and testing.
+- Faucet/Sink Install: $125 – $200.
+- Garbage Disposal: $150 – $175.
+- Minor Leak Repair: $125 (Service minimum) up to $300 depending on access.
+
+Electrical Services (Non-Licensed Scope)
+- Ceiling Fan Installation: $150 – $275.
+- Light Fixture Swaps: $125 – $175.
+- Outlet/Switch Upgrades: $30 – $50 per unit.
+- TV Mounting: $125 – $200 (Includes wire concealment).
+
+Carpentry & Structural (Our Specialty)
+- Custom Built-ins/Shelving: Starting at $800. Requires site visit.
+- Baseboards/Trim: $2.50 – $5.00 per linear foot.
+- Door Hanging/Repair: $150 – $300 per door.
+- Deck/Fence Repair: $200 minimum. We focus on heavy-duty post-replacement.
+
+MATERIAL COSTS AND LOGISTICS
+- Zero Markup Policy: We do not profit on materials. You pay what the store charges.
+- Material Pick-up: $40 "Run Fee" if we have to go to the hardware store for you.
+- Quality Standard: We only use high-grade fasteners. In the humidity of New Orleans and Houston, cheap hardware rusts out. We use the right stuff the first time.
+
+SERVICE POLICIES
+1. Service Minimum: $125 minimum for any house call.
+2. Location Note: While we have a branch in Houston, our main operations and larger crew are based in New Orleans.
+3. Estimates: Free ball-park estimates via text/photo. On-site consultations for custom carpentry are $50 (credited back if you book).
+4. Payment: Cash, Zelle, and Credit Cards (3% processing fee).
+
+CHATBOT OPERATING INSTRUCTIONS
+- Lead Capture Priority: If a customer asks for a quote, ask: "Which city are you located in, New Orleans or Houston?" and "What is your Zip Code?"
+- Directness: If a job is too small or outside our scope (like full HVAC or Roofing), be honest: "We handle repairs and carpentry; for a full roof replacement, you'll need a dedicated roofing contractor."
+- Tone: Professional, handy, and "No-Fluff."
+
+Company Identity
+Company Name: Hulbert & Sons.
+Primary Headquarters: New Orleans, Louisiana (serving Metairie, Kenner, Westbank, and surrounding areas).
+Satellite Branch: Houston, Texas.
+Expertise: Custom carpentry, structural home repairs, and industrial-grade handyman services.
+Background: We bring 6 years of offshore oilfield experience and industrial welding expertise to residential homes. We don't do "band-aid" fixes; we build for structural integrity.
+
+Pricing and Rates
+Service Minimum: $125 for any house call.
+Standard Labor Rate: $75 to $95 per hour depending on complexity.
+Material Costs: Customers pay exactly what the store charges. We provide the receipt and do not add a markup to materials.
+Material Run Fee: $40 flat fee if we have to go to the store to pick up items for you.
+Consultation Fee: $50 for complex custom carpentry projects (this is credited back to your bill if you book the job).
+
+Common Job Estimates (Labor Only)
+Plumbing: Toilet replacement costs $150 to $250 and takes about 2 hours. Faucet or sink installation costs $125 to $200 and takes 1 to 2 hours. Garbage disposal installation costs $150 to $185 and takes 1 hour.
+Electrical: Ceiling fan installation costs $150 to $300 and takes 2 to 3 hours. Light fixture swaps cost $125 to $175 and take 1 hour. Outlet or switch upgrades cost $35 to $50 per unit.
+Carpentry: Custom built-in shelving starts at $800 and can take 1 to 4 days. Trim and baseboard work costs $3 to $6 per linear foot. Door hanging or repair costs $150 to $300 per door.
+General Repairs: TV mounting for screens up to 85 inches costs $150 to $250 and takes 1 hour. Small drywall patches cost $125 to $250 and take 1 to 2 hours. Furniture assembly costs $100 to $350 depending on size. Fence or gate repair starts at $200.
+
+Service Area and Scheduling
+New Orleans is our main service hub. Houston is handled by our specialized branch team. We typically book 3 to 7 days in advance. Emergency calls for leaks or hazards are prioritized for same-day service when possible.
+
+Customer Protocol for Chatbot
+The bot should always ask for the customer's city (New Orleans or Houston) and Zip Code first.
+The bot should encourage customers to text a photo of the repair to the main business line for a faster, more accurate quote.
+If a job is outside our scope (like a full roof replacement), the bot should honestly state we specialize in repairs and carpentry rather than major roofing.
