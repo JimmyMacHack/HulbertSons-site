@@ -20,7 +20,7 @@ if (!env.GEMINI_API_KEY) {
   // ✅ Put your KB text here for now (fastest + most reliable on Pages)
   // Later you can move it to KV/R2 if it grows.
   const KB = `
-PASTE YOUR HULBERT & SONS KNOWLEDGE BASE TEXT HERE
+Hulbert & Sons provides handyman and home repair services in New Orleans and Houston.
 `.trim();
 
   const prompt = `
