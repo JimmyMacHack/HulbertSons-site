@@ -30,9 +30,9 @@ const handleAnalyzeProject = async () => {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
 
-    setAiSuggestion(data as AiSuggestion);
-  } catch (error) {
-    console.error("Error calling estimate API:", error);
+    setAiSuggestion(data);
+  } catch (e) {
+    console.error(e);
   } finally {
     setIsAnalyzing(false);
   }
