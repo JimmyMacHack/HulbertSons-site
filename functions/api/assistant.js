@@ -3,7 +3,12 @@ export async function onRequestPost({ request, env }) {
   try {
     body = await request.json();
   } catch {}
-
+if (!env.GEMINI_API_KEY) {
+  return new Response(JSON.stringify({ error: "Missing GEMINI_API_KEY (Cloudflare secret not set)" }), {
+    status: 500,
+    headers: { "Content-Type": "application/json" },
+  });
+}
   const question = (body.question || "").toString().trim();
   if (!question) {
     return new Response(JSON.stringify({ error: "Missing 'question' in JSON body." }), {
