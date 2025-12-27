@@ -37,8 +37,8 @@ const handleAnalyzeProject = async () => {
     setIsAnalyzing(false);
   }
 };
-    try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    try 
+       
       const prompt = `You are an expert handyman estimator for "Hulbert & Sons" in New Orleans.
 Context:
 - Service Areas: Greater New Orleans, Metairie, Kenner, Gretna, Westbank.
