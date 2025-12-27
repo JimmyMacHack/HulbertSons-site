@@ -1,42 +1,62 @@
 export async function onRequestPost({ request, env }) {
-  const { question } = await request.json();
+  let body = {};
+  try {
+    body = await request.json();
+  } catch {}
 
+  const question = (body.question || "").toString().trim();
   if (!question) {
-    return new Response(
-      JSON.stringify({ error: "Missing question" }),
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: "Missing 'question' in JSON body." }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
-  const res = await fetch(
+  // ✅ Put your KB text here for now (fastest + most reliable on Pages)
+  // Later you can move it to KV/R2 if it grows.
+  const KB = `
+PASTE YOUR HULBERT & SONS KNOWLEDGE BASE TEXT HERE
+`.trim();
+
+  const prompt = `
+You are the Hulbert & Sons website assistant.
+
+Use ONLY the knowledge base below. If the answer isn't in it, say you don't know and offer to take a message.
+
+Style:
+- Friendly, professional, concise.
+- If the user asks for a quote, ask:
+  (1) City (New Orleans or Houston)
+  (2) Zip code
+  (3) What needs to be done + any photos if possible
+
+KNOWLEDGE BASE:
+${KB}
+
+User question: ${question}
+`.trim();
+
+  const geminiRes = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: question }],
-          },
-        ],
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
       }),
     }
   );
 
-  const data = await res.json();
+  const data = await geminiRes.json();
 
-  return new Response(
-    JSON.stringify({
-      answer:
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "Sorry, I couldn’t find that information.",
-    }),
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    }
-  );
+  const answer =
+    data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join("")?.trim() ||
+    "Sorry — no answer returned.";
+
+  return new Response(JSON.stringify({ answer }), {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
 }
