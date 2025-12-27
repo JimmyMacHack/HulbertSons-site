@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GoogleGenAI, Type } from "@google/genai";
 import { Sparkles, Loader2, Phone } from 'lucide-react';
 
 interface AiSuggestion {
@@ -15,17 +14,29 @@ interface AiSuggestion {
   prep_tip: string;
 }
 
-const ContactForm: React.FC = () => {
-  const [projectDetails, setProjectDetails] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion | null>(null);
+const handleAnalyzeProject = async () => {
+  if (!projectDetails.trim()) return;
 
-  const handleAnalyzeProject = async () => {
-    if (!projectDetails.trim()) return;
-    
-    setIsAnalyzing(true);
-    setAiSuggestion(null);
+  setIsAnalyzing(true);
+  setAiSuggestion(null);
 
+  try {
+    const res = await fetch("/api/estimate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ details: projectDetails }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+
+    setAiSuggestion(data as AiSuggestion);
+  } catch (error) {
+    console.error("Error calling estimate API:", error);
+  } finally {
+    setIsAnalyzing(false);
+  }
+};
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const prompt = `You are an expert handyman estimator for "Hulbert & Sons" in New Orleans.
