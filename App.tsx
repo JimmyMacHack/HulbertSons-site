@@ -3,6 +3,7 @@ import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import HomePage from './components/HomePage';
 import ServicesPage from './components/ServicesPage';
 import AIChatWidget from './components/AIChatWidget';
+import HoustonPage from "./HoustonPage";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
