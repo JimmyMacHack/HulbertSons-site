@@ -1,48 +1,53 @@
-import React, { useState } from "react";
-import { Sparkles, Loader2, Phone } from "lucide-react";
+import { pricingData } from "../data/pricingData";
 
-interface AiSuggestion {
-  improved_description: string;
-  questions?: string[];
-  category?: string;
-  estimated_cost: string;
-  estimated_time?: string;
-  difficulty?: string;
-  urgency: string;
-  urgency_message?: string;
-  safety_tip?: string;
-  prep_tip?: string;
-}
+const handleAnalyzeProject = () => {
+  if (!projectDetails.trim()) return;
 
-const ContactForm: React.FC = () => {
-  const [projectDetails, setProjectDetails] = useState("");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion | null>(null);
+  setIsAnalyzing(true);
+  setAiSuggestion(null);
 
-  const handleAnalyzeProject = async () => {
-    if (projectDetails.trim().length < 3) return;
+  setTimeout(() => {
+    const text = projectDetails.toLowerCase();
 
-    setIsAnalyzing(true);
-    setAiSuggestion(null);
+    const match = pricingData.find(item =>
+      item.keywords.some(k => text.includes(k))
+    );
 
-    try {
-      const res = await fetch("/api/estimate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ details: projectDetails }),
+    if (!match) {
+      setAiSuggestion({
+        improved_description:
+          "General home repair request. A technician will inspect and provide an accurate estimate.",
+        questions: [],
+        category: "General",
+        estimated_cost: "Estimate after inspection",
+        estimated_time: "Varies",
+        difficulty: "Unknown",
+        urgency: "Low",
+        urgency_message: "",
+        safety_tip: "",
+        prep_tip: "",
       });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Estimate failed");
-
-      setAiSuggestion(data);
-    } catch (err) {
-      console.error(err);
-      alert("AI estimate failed. Check console.");
-    } finally {
-      setIsAnalyzing(false);
+    } else {
+      setAiSuggestion({
+        improved_description: match.description,
+        questions: [],
+        category: match.category,
+        estimated_cost: match.estimated_cost,
+        estimated_time: "Same-day service",
+        difficulty: "Medium",
+        urgency: match.urgency,
+        urgency_message:
+          match.urgency === "High"
+            ? "This issue may cause further damage if delayed."
+            : "",
+        safety_tip: "",
+        prep_tip: "",
+      });
     }
-  };
+
+    setIsAnalyzing(false);
+  }, 500); // fake “AI thinking”
+};
   
   return (
     <div className="bg-gradient-to-br from-white to-yellow-50/50 rounded-2xl shadow-2xl p-8 border border-brandGold/20 hover:shadow-brandGold/10 transition-shadow duration-500">
