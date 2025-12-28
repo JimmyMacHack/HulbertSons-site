@@ -1,0 +1,49 @@
+{
+  "base_trip_fee": 95,
+  "default_labor_rate": 95,
+  "default_materials_pct": 0.2,
+  "items": [
+    {
+      "id": "leaky_faucet",
+      "keywords": ["leaky faucet", "faucet leak", "dripping faucet", "faucet"],
+      "category": "Plumbing",
+      "labor_hours_min": 1,
+      "labor_hours_max": 2,
+      "materials_min": 15,
+      "materials_max": 80,
+      "difficulty": "Easy",
+      "urgency": "Medium",
+      "urgency_message": "If the leak is steady, shut off the supply valves to prevent damage.",
+      "safety_tip": "Turn off water supply before disassembly.",
+      "prep_tip": "Clear under-sink area and take a photo of the faucet."
+    },
+    {
+      "id": "replace_sink",
+      "keywords": ["replace sink", "new sink", "sink replacement", "install sink", "sink"],
+      "category": "Plumbing",
+      "labor_hours_min": 3,
+      "labor_hours_max": 6,
+      "materials_min": 80,
+      "materials_max": 600,
+      "difficulty": "Medium",
+      "urgency": "Medium",
+      "urgency_message": "If the sink is leaking underneath, stop using it until inspected.",
+      "safety_tip": "Shut off water and verify no leaks before restoring service.",
+      "prep_tip": "Measure sink opening and bring link/photo of the sink you want."
+    },
+    {
+      "id": "roof_leak_patch",
+      "keywords": ["leaky roof", "roof leak", "water stain ceiling", "ceiling leak"],
+      "category": "Roofing",
+      "labor_hours_min": 2,
+      "labor_hours_max": 5,
+      "materials_min": 25,
+      "materials_max": 200,
+      "difficulty": "Medium",
+      "urgency": "High",
+      "urgency_message": "Active roof leaks can cause electrical hazards and mold—cover items and contain drips now.",
+      "safety_tip": "Avoid attic contact with wet wiring; shut off circuit if water is near lights/outlets.",
+      "prep_tip": "Send photos of the ceiling stain and roof area if possible."
+    }
+  ]
+}
