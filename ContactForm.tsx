@@ -1,54 +1,84 @@
-import { pricingData } from "../data/pricingData";
+import React, { useState } from 'react';
+import { GoogleGenAI, Type } from "@google/genai";
+import { Sparkles, Loader2, Phone } from 'lucide-react';
 
-const handleAnalyzeProject = () => {
-  if (!projectDetails.trim()) return;
+interface AiSuggestion {
+  improved_description: string;
+  questions: string[];
+  category: string;
+  estimated_cost: string;
+  estimated_time: string;
+  difficulty: string;
+  urgency: string;
+  urgency_message: string;
+  safety_tip: string;
+  prep_tip: string;
+}
 
-  setIsAnalyzing(true);
-  setAiSuggestion(null);
+const ContactForm: React.FC = () => {
+  const [projectDetails, setProjectDetails] = useState('');
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion | null>(null);
 
-  setTimeout(() => {
-    const text = projectDetails.toLowerCase();
+  const handleAnalyzeProject = async () => {
+    if (!projectDetails.trim()) return;
+    
+    setIsAnalyzing(true);
+    setAiSuggestion(null);
 
-    const match = pricingData.find(item =>
-      item.keywords.some(k => text.includes(k))
-    );
+    try {
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const prompt = `You are an expert handyman estimator for "Hulbert & Sons" in New Orleans.
+Context:
+- Service Areas: Greater New Orleans, Metairie, Kenner, Gretna, Westbank.
+- Common Local Home Types: Shotgun houses, raised cottages, historic homes with cypress siding.
+- Common Issues: Humidity damage, termites, settling foundations.
+- Pricing: Use 2025 market rates for New Orleans labor and materials.
 
-    if (!match) {
-      setAiSuggestion({
-        improved_description:
-          "General home repair request. A technician will inspect and provide an accurate estimate.",
-        questions: [],
-        category: "General",
-        estimated_cost: "Estimate after inspection",
-        estimated_time: "Varies",
-        difficulty: "Unknown",
-        urgency: "Low",
-        urgency_message: "",
-        safety_tip: "",
-        prep_tip: "",
+A client has written this project description: "${projectDetails}". Analyze this request and provide a detailed estimate and professional advice.`;
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                    improved_description: { type: Type.STRING },
+                    questions: { type: Type.ARRAY, items: { type: Type.STRING } },
+                    category: { type: Type.STRING },
+                    estimated_cost: { type: Type.STRING },
+                    estimated_time: { type: Type.STRING },
+                    difficulty: { type: Type.STRING },
+                    urgency: { type: Type.STRING },
+                    urgency_message: { type: Type.STRING },
+                    safety_tip: { type: Type.STRING },
+                    prep_tip: { type: Type.STRING },
+                },
+                required: ["improved_description", "estimated_cost", "urgency"]
+            }
+        }
       });
-    } else {
-      setAiSuggestion({
-        improved_description: match.description,
-        questions: [],
-        category: match.category,
-        estimated_cost: match.estimated_cost,
-        estimated_time: "Same-day service",
-        difficulty: "Medium",
-        urgency: match.urgency,
-        urgency_message:
-          match.urgency === "High"
-            ? "This issue may cause further damage if delayed."
-            : "",
-        safety_tip: "",
-        prep_tip: "",
-      });
+
+      const textResponse = response.text;
+      if (textResponse) {
+          const result = JSON.parse(textResponse) as AiSuggestion;
+          setAiSuggestion(result);
+      }
+    } catch (error) {
+      console.error("Error calling Gemini API:", error);
+    } finally {
+      setIsAnalyzing(false);
     }
+  };
 
-    setIsAnalyzing(false);
-  }, 500); // fake “AI thinking”
-};
-  
+  const applySuggestion = () => {
+    if (aiSuggestion) {
+      setProjectDetails(aiSuggestion.improved_description);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br from-white to-yellow-50/50 rounded-2xl shadow-2xl p-8 border border-brandGold/20 hover:shadow-brandGold/10 transition-shadow duration-500">
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
@@ -81,7 +111,7 @@ const handleAnalyzeProject = () => {
               <button 
                 type="button" 
                 onClick={handleAnalyzeProject}
-                disabled={isAnalyzing}
+                disabled={isAnalyzing || projectDetails.length < 5}
                 className="text-xs flex items-center text-brandGold hover:text-white font-bold bg-brandGold/10 hover:bg-brandGold border border-brandGold/30 px-3 py-1.5 rounded-full transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {isAnalyzing ? (

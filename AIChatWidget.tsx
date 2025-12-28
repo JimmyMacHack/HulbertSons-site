@@ -1,9 +1,18 @@
-const FAQ = [
-  { q: /hours|open/i, a: "We operate Monday–Friday, 8am–6pm." },
-  { q: /service|do you/i, a: "We offer handyman and home repair services in New Orleans and Houston." },
-];
+import React, { useState } from 'react';
+import { MessageSquare, X } from 'lucide-react';
 
-function getReply(input: string) {
-  return FAQ.find(f => f.q.test(input))?.a
-    || "I can help with services, pricing, or scheduling. What would you like to know?";
-}
+const AIChatWidget: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <button 
+      onClick={() => setIsOpen(!isOpen)}
+      className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white p-4 rounded-full shadow-2xl hover:bg-slate-800 transition-all hover:scale-110 border-2 border-[#EAB207] animate-bounce-slow"
+      aria-label="Toggle chat"
+    >
+      {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+    </button>
+  );
+};
+
+export default AIChatWidget;
