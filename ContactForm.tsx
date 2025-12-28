@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Sparkles, Loader2, Phone } from 'lucide-react';
+import React, { useState } from "react";
+import { Sparkles, Loader2, Phone } from "lucide-react";
 
 interface AiSuggestion {
   improved_description: string;
@@ -14,63 +14,35 @@ interface AiSuggestion {
   prep_tip: string;
 }
 
-const handleAnalyzeProject = async () => {
-  if (!projectDetails.trim()) return;
+const ContactForm: React.FC = () => {
+  const [projectDetails, setProjectDetails] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion | null>(null);
 
-  setIsAnalyzing(true);
-  setAiSuggestion(null);
+  const handleAnalyzeProject = async () => {
+    if (!projectDetails.trim()) return;
 
-  try {
-    const res = await fetch("/api/estimate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ details: projectDetails }),
-    });
+    setIsAnalyzing(true);
+    setAiSuggestion(null);
 
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
-
-    setAiSuggestion(data);
-  } catch (e) {
-    console.error(e);
-  } finally {
-    setIsAnalyzing(false);
-  }
-};
-    try 
-       
-      const prompt = `You are an expert handyman estimator for "Hulbert & Sons" in New Orleans.
-Context:
-- Service Areas: Greater New Orleans, Metairie, Kenner, Gretna, Westbank.
-- Common Local Home Types: Shotgun houses, raised cottages, historic homes with cypress siding.
-- Common Issues: Humidity damage, termites, settling foundations.
-- Pricing: Use 2025 market rates for New Orleans labor and materials.
-
-A client has written this project description: "${projectDetails}". Analyze this request and provide a detailed estimate and professional advice.`;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: prompt,
-        config: {
-            responseMimeType: "application/json",
-            responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                    improved_description: { type: Type.STRING },
-                    questions: { type: Type.ARRAY, items: { type: Type.STRING } },
-                    category: { type: Type.STRING },
-                    estimated_cost: { type: Type.STRING },
-                    estimated_time: { type: Type.STRING },
-                    difficulty: { type: Type.STRING },
-                    urgency: { type: Type.STRING },
-                    urgency_message: { type: Type.STRING },
-                    safety_tip: { type: Type.STRING },
-                    prep_tip: { type: Type.STRING },
-                },
-                required: ["improved_description", "estimated_cost", "urgency"]
-            }
-        }
+    try {
+      const res = await fetch("/api/estimate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ details: projectDetails }),
       });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+
+      setAiSuggestion(data as AiSuggestion);
+    } catch (e) {
+      console.error(e);
+      alert("AI estimate failed. Open DevTools → Console.");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
       const textResponse = response.text;
       if (textResponse) {
