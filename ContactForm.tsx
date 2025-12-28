@@ -3,15 +3,15 @@ import { Sparkles, Loader2, Phone } from "lucide-react";
 
 interface AiSuggestion {
   improved_description: string;
-  questions: string[];
-  category: string;
+  questions?: string[];
+  category?: string;
   estimated_cost: string;
-  estimated_time: string;
-  difficulty: string;
+  estimated_time?: string;
+  difficulty?: string;
   urgency: string;
-  urgency_message: string;
-  safety_tip: string;
-  prep_tip: string;
+  urgency_message?: string;
+  safety_tip?: string;
+  prep_tip?: string;
 }
 
 const ContactForm: React.FC = () => {
@@ -20,7 +20,7 @@ const ContactForm: React.FC = () => {
   const [aiSuggestion, setAiSuggestion] = useState<AiSuggestion | null>(null);
 
   const handleAnalyzeProject = async () => {
-    if (!projectDetails.trim()) return;
+    if (projectDetails.trim().length < 3) return;
 
     setIsAnalyzing(true);
     setAiSuggestion(null);
@@ -32,36 +32,18 @@ const ContactForm: React.FC = () => {
         body: JSON.stringify({ details: projectDetails }),
       });
 
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Estimate failed");
 
-      setAiSuggestion(data as AiSuggestion);
-    } catch (e) {
-      console.error(e);
-      alert("AI estimate failed. Open DevTools → Console.");
+      setAiSuggestion(data);
+    } catch (err) {
+      console.error(err);
+      alert("AI estimate failed. Check console.");
     } finally {
       setIsAnalyzing(false);
     }
   };
-
-      const textResponse = response.text;
-      if (textResponse) {
-          const result = JSON.parse(textResponse) as AiSuggestion;
-          setAiSuggestion(result);
-      }
-    } catch (error) {
-      console.error("Error calling Gemini API:", error);
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
-  const applySuggestion = () => {
-    if (aiSuggestion) {
-      setProjectDetails(aiSuggestion.improved_description);
-    }
-  };
-
+  
   return (
     <div className="bg-gradient-to-br from-white to-yellow-50/50 rounded-2xl shadow-2xl p-8 border border-brandGold/20 hover:shadow-brandGold/10 transition-shadow duration-500">
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
@@ -94,7 +76,7 @@ const ContactForm: React.FC = () => {
               <button 
                 type="button" 
                 onClick={handleAnalyzeProject}
-                disabled={isAnalyzing || projectDetails.length < 5}
+                disabled={isAnalyzing}
                 className="text-xs flex items-center text-brandGold hover:text-white font-bold bg-brandGold/10 hover:bg-brandGold border border-brandGold/30 px-3 py-1.5 rounded-full transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {isAnalyzing ? (
