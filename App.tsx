@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone, Mail, MapPin, ChevronDown } from 'lucide-react';
 import HomePage from './components/HomePage';
 import ServicesPage from './components/ServicesPage';
-import HoustonPage from './components/HoustonPage';
+import HoustonPage from './HoustonPage';
 import AIChatWidget from './components/AIChatWidget';
 
 const App = () => {
