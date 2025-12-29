@@ -174,7 +174,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                      Meet the Owner
                    </h3>
                    <div className="mb-4">
-                     <span className="font-black text-slate-900 block text-2xl tracking-tight">James Hulbert</span>
+                     <span className="font-black text-slate-900 block text-2xl tracking-tight">James Hulbert Sr.</span>
                    </div>
                    <p className="text-slate-600 leading-relaxed italic mb-8 text-lg border-l-4 border-brandGold pl-4 py-2">
                      "I started this business with a simple belief: that homeowners deserve a handyman they can actually trust. I personally oversee our projects to ensure that the work we do on your home is the same quality I'd expect in my own."
